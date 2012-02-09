@@ -1,6 +1,6 @@
-package Server.test;
+package Server.test.Clients.test;
 
-import Server.src.TicTacToeClient;
+import Server.src.Clients.src.TicTacToeClient;
 import Server.src.Packet;
 import Server.test.mocks.src.TestMarketer;
 import junit.framework.TestCase;

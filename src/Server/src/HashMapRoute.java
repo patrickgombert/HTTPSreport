@@ -1,5 +1,9 @@
 package Server.src;
 
+import Server.src.Clients.src.FourOhFourClient;
+import Server.src.Clients.src.SanityClient;
+import Server.src.Clients.src.TicTacToeClient;
+import Server.src.Clients.src.TimeClient;
 import Server.src.mocks.src.ClientMock;
 
 import java.util.Set;

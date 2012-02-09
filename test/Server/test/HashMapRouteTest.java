@@ -1,6 +1,6 @@
 package Server.test;
 
-import Server.src.FourOhFourClient;
+import Server.src.Clients.src.FourOhFourClient;
 import Server.src.HashMapRoute;
 import Server.src.mocks.src.ClientMock;
 import junit.framework.TestCase;

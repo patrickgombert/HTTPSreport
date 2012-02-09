@@ -1,5 +1,8 @@
-package Server.src;
+package Server.src.Clients.src;
 
+import Server.src.Client;
+import Server.src.Marketer;
+import Server.src.Packet;
 import Server.src.persistance.src.InMemoryDB;
 import Server.src.persistance.src.Persistable;
 import TTTGame.src.AI;

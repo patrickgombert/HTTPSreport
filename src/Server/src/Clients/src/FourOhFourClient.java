@@ -1,4 +1,8 @@
-package Server.src;
+package Server.src.Clients.src;
+
+import Server.src.Client;
+import Server.src.Marketer;
+import Server.src.Packet;
 
 public class FourOhFourClient implements Client {
 

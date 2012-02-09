@@ -1,7 +1,7 @@
-package Server.test;
+package Server.test.Clients.test;
 
+import Server.src.Clients.src.TimeClient;
 import Server.src.Packet;
-import Server.src.TimeClient;
 import Server.test.mocks.src.TestMarketer;
 import junit.framework.TestCase;
 import org.junit.After;
