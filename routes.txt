@@ -1,0 +1,17 @@
+GET / SanityClient
+GET /ttt TicTacToeClient
+GET /humanvshuman TicTacToeClient
+GET /humanvsai TicTacToeClient
+GET /aivshuman TicTacToeClient
+GET /move00 TicTacToeClient
+GET /move01 TicTacToeClient
+GET /move02 TicTacToeClient
+GET /move10 TicTacToeClient
+GET /move11 TicTacToeClient
+GET /move12 TicTacToeClient
+GET /move20 TicTacToeClient
+GET /move21 TicTacToeClient
+GET /move22 TicTacToeClient
+GET /time TimeClient
+GET /time/Chicago TimeClient
+GET /time/Ohio TimeClient
