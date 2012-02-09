@@ -2,9 +2,9 @@ package Server.src;
 
 import Server.src.Clients.src.FourOhFourClient;
 import Server.src.Clients.src.SanityClient;
-import Server.src.Clients.src.TicTacToeClient;
 import Server.src.Clients.src.TimeClient;
 import Server.src.mocks.src.ClientMock;
+import TTTGame.src.TicTacToeClient;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,11 +15,6 @@ public class HashMapRoute implements Route {
     
     public HashMapRoute() {
         routeMap = new ConcurrentHashMap<String, ConcurrentHashMap<String, String>>();
-        addVerb("GET");
-        addVerb("POST");
-        addVerb("PUT");
-        addVerb("DELETE");
-        addVerb("HEAD");
     }
     
     public void addVerb(String verb) {
@@ -62,14 +57,15 @@ public class HashMapRoute implements Route {
     }
 
     private Client findCallBack(String callBack) {
-        if(callBack.equals("SanityClient"))
-            return new SanityClient();
-        if(callBack.equals("TicTacToeClient"))
-            return new TicTacToeClient();
-        if(callBack.equals("TimeClient"))
-            return new TimeClient();
-        if(callBack.equals("ClientMock"))
+        if(callBack.equals("ClientMock")) {
             return new ClientMock();
+        } else if(callBack.equals("TicTacToeClient")) {
+            return new TicTacToeClient();
+        } else if(callBack.equals("SanityClient")) {
+            return new SanityClient();
+        } else if(callBack.equals("TimeClient")) {
+            return new TimeClient();
+        }
         return new FourOhFourClient();
     }
 

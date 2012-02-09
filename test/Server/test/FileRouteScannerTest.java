@@ -38,4 +38,15 @@ public class FileRouteScannerTest extends TestCase {
         assertEquals("GET /test ClientMock", route.data);
     }
 
+    @Test
+    public void testInvalidHTTPVerb() {
+        scanner = new FileRouteScanner(new Scanner("DERP /test ClientMock"), route);
+        try {
+            scanner.reportByLine();
+            fail("Didn't throw IllegalArgumentException");
+        } catch(Exception e) {
+            assertEquals(IllegalArgumentException.class, e.getClass());
+        }
+    }
+
 }

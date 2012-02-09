@@ -25,7 +25,7 @@ public class Receptionist {
         } catch(IOException e) {
             System.err.println("Failed to bind to port: " + listenPort);
         } catch(IllegalArgumentException e) {
-            System.err.println("Failed to read routes file");
+            System.err.println("PC LOAD LETTER! ... Failed to read routes file");
         }
     }
 
