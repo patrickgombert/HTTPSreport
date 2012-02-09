@@ -7,25 +7,22 @@ import java.util.Scanner;
 public class Receptionist {
 
     public static void main(String[] args) {
-        try {
-            new Receptionist(Integer.parseInt(args[0])).run();
-        } catch (Exception e) {
-            new Receptionist(8080).run();
-        }
+        CommandParser commandparser = new CommandParser(args);
+        new Receptionist(commandparser.getPortNumber(), commandparser.getRouteFilePath()).run();
     }
 
     private ServerSocket serverSocket;
     private Route routes;
 
-    public Receptionist(int listenPort) {
+    public Receptionist(int listenPort, String routesFile) {
         try {
             serverSocket = new ServerSocket(listenPort);
             routes = new HashMapRoute();
-            generateRoutes("routes.txt");
+            generateRoutes(routesFile);
         } catch(IOException e) {
             System.err.println("Failed to bind to port: " + listenPort);
         } catch(IllegalArgumentException e) {
-            System.err.println("PC LOAD LETTER! ... Failed to read routes file");
+            System.err.println("Failed to read routes file");
         }
     }
 

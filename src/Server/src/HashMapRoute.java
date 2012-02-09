@@ -1,8 +1,6 @@
 package Server.src;
 
 import Server.src.Clients.src.FourOhFourClient;
-import Server.src.Clients.src.SanityClient;
-import Server.src.Clients.src.TimeClient;
 import Server.src.mocks.src.ClientMock;
 import TTTGame.src.TicTacToeClient;
 
@@ -61,10 +59,6 @@ public class HashMapRoute implements Route {
             return new ClientMock();
         } else if(callBack.equals("TicTacToeClient")) {
             return new TicTacToeClient();
-        } else if(callBack.equals("SanityClient")) {
-            return new SanityClient();
-        } else if(callBack.equals("TimeClient")) {
-            return new TimeClient();
         }
         return new FourOhFourClient();
     }

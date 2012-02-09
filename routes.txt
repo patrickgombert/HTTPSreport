@@ -1,4 +1,3 @@
-GET / SanityClient
 GET /ttt TicTacToeClient
 GET /humanvshuman TicTacToeClient
 GET /humanvsai TicTacToeClient
@@ -12,6 +11,3 @@ GET /move12 TicTacToeClient
 GET /move20 TicTacToeClient
 GET /move21 TicTacToeClient
 GET /move22 TicTacToeClient
-GET /time TimeClient
-GET /time/Chicago TimeClient
-GET /time/Ohio TimeClient
