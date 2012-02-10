@@ -7,15 +7,22 @@ public class CommandParser {
     CmdLineParser parser;
     CmdLineParser.Option port;
     CmdLineParser.Option routes;
+    CmdLineParser.Option jar;
+    CmdLineParser.Option className;
     
     public String usage() {
-        return "Usage: [-p --port port_number (default 3000)] [-r --routes route_file (default routes.txt)]";
+        return "Usage: [-p --port port_number (default 3000)]" +
+                      "[-r --routes route_file (default routes.txt)]" +
+                      "[-j --jar jar_directory]" +
+                      "[-c --class client_class]";
     }
     
     public CommandParser(String[] args) {
         parser = new CmdLineParser();
         port = parser.addIntegerOption('p', "port");
         routes = parser.addStringOption('r', "routes");
+        jar = parser.addStringOption('j', "jar");
+        className = parser.addStringOption('c', "class");
 
         try {
             parser.parse(args);
@@ -31,6 +38,14 @@ public class CommandParser {
     
     public String getRouteFilePath() {
         return (String)parser.getOptionValue(routes, new String("routes.txt"));
+    }
+    
+    public String getJarDirectory() {
+        return (String)parser.getOptionValue(jar);
+    }
+    
+    public String getClassName() {
+        return (String)parser.getOptionValue(className);
     }
 
 }

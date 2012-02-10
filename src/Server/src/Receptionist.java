@@ -1,22 +1,37 @@
 package Server.src;
 
+import jar.classLoader.JarClassLoader;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.Scanner;
 
 public class Receptionist {
 
+    public void checkInputValidity(String jarDir, String className) {
+        if(jarDir == null || className == null) {
+            System.err.println("Requires a jar and a class which implements Client");
+            System.exit(1);
+        }
+    }
+
     public static void main(String[] args) {
         CommandParser commandparser = new CommandParser(args);
-        new Receptionist(commandparser.getPortNumber(), commandparser.getRouteFilePath()).run();
+        int port = commandparser.getPortNumber();
+        String routeFile = commandparser.getRouteFilePath();
+        String jarDirectory = commandparser.getJarDirectory();
+        String className = commandparser.getClassName();
+        new Receptionist(port, routeFile, jarDirectory, className).run();
     }
 
     private ServerSocket serverSocket;
     private Route routes;
 
-    public Receptionist(int listenPort, String routesFile) {
+    public Receptionist(int listenPort, String routesFile, String jarDir, String className) {
+        checkInputValidity(jarDir,  className);
         try {
             serverSocket = new ServerSocket(listenPort);
+            Class clientImpl = generateClass(jarDir, className);
             routes = new HashMapRoute();
             generateRoutes(routesFile);
         } catch(IOException e) {
@@ -33,6 +48,18 @@ public class Receptionist {
             } catch(IOException e) {
                 System.err.println("Dropped the ball on an incoming connection");
             }
+        }
+    }
+    
+    private Class generateClass(String jarDir, String className) {
+        JarClassLoader jarLoader = new JarClassLoader(jarDir);
+        try {
+            Class clientImpl = jarLoader.loadClass(className, true);
+            return clientImpl;
+        } catch(Exception e) {
+            System.err.println("Couldn't find the speficied client class");
+            System.exit(1);
+            return null;
         }
     }
 
