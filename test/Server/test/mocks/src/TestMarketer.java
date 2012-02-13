@@ -7,12 +7,12 @@ public class TestMarketer implements Marketer {
     private String call;
     private Object data;
 
-    public void execute(Packet packet, Route hashMapRoute, Executive executive) {
+    public void execute(Memo memo, Route hashMapRoute, Executive executive) {
         call = "execute";
-        data = packet;
+        data = memo;
     }
     
-    public void invokeCallBack(Client client, Packet packet) {
+    public void invokeCallBack(Client client, Memo memo) {
 
     }
     
@@ -24,8 +24,8 @@ public class TestMarketer implements Marketer {
         return data;
     }
     
-    public void clientResponse(Packet packet) {
+    public void clientResponse(Memo memo) {
         call = "clientResponse";
-        data = packet;
+        data = memo;
     }
 }

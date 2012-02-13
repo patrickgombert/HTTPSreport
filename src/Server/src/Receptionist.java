@@ -10,7 +10,7 @@ public class Receptionist {
 
     public void checkInputValidity(String jarDir, String className) {
         if(jarDir == null || className == null) {
-            System.err.println("Requires a jar and a class which implements Client");
+            System.err.println("Requires a jar with a class that implements Client");
             System.exit(1);
         }
     }
@@ -33,7 +33,7 @@ public class Receptionist {
             serverSocket = new ServerSocket(listenPort);
             Class clientImpl = generateClass(jarDir, className);
             routes = new HashMapRoute();
-            generateRoutes(routesFile);
+            generateRoutes(routesFile, clientImpl);
         } catch(IOException e) {
             System.err.println("Failed to bind to port: " + listenPort);
         } catch(IllegalArgumentException e) {
@@ -57,17 +57,17 @@ public class Receptionist {
             Class clientImpl = jarLoader.loadClass(className, true);
             return clientImpl;
         } catch(Exception e) {
-            System.err.println("Couldn't find the speficied client class");
+            System.err.println("Couldn't find the specified client class");
             System.exit(1);
             return null;
         }
     }
 
-    private void generateRoutes(String filePath) throws IllegalArgumentException {
+    private void generateRoutes(String filePath, Class clientImpl) throws IllegalArgumentException {
         try {
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
-            FileRouteScanner routeScanner = new FileRouteScanner(scanner, routes);
+            FileRouteScanner routeScanner = new FileRouteScanner(scanner, routes, clientImpl);
             routeScanner.reportByLine();
         } catch(Exception e) {
             throw new IllegalArgumentException();

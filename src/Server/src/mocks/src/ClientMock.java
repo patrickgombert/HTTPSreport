@@ -2,27 +2,27 @@ package Server.src.mocks.src;
 
 import Server.src.Client;
 import Server.src.Marketer;
-import Server.src.Packet;
+import Server.src.Memo;
 
 public class ClientMock implements Client {
 
     public boolean executed;
-    public boolean setPacket;
+    public boolean setMemo;
 
     public ClientMock() {
         executed = false;
-        setPacket = false;
+        setMemo = false;
     }
 
-    public void setPacket(Packet packet) {
-        setPacket = true;
+    public void setMemo(Memo memo) {
+        setMemo = true;
     }
 
     public void execute(Marketer marketer) {
         executed = true;
     }
     
-    public void contactMarketer(Marketer marketer, Packet packet) {
+    public void contactMarketer(Marketer marketer, Memo memo) {
 
     }
 

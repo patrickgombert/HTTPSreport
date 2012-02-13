@@ -3,23 +3,23 @@ package Server.src;
 import java.util.HashMap;
 import java.util.Set;
 
-public class Packet {
+public class Memo {
 
     private HashMap<String, String> fields = new HashMap<String, String>();
 
-    public Packet(int status, String format) {
+    public Memo(int status, String format) {
         fields.put("Status", generateStatus(status));
         fields.put("Content-Type", generateFormat(format));
         fields.put("Version", "HTTP/1.1");
         fields.put("Server", "Patrick's Server");
     }
 
-    public Packet(int status, String format, String content) {
+    public Memo(int status, String format, String content) {
         this(status, format);
         fields.put("Content", content);
     }
 
-    public Packet(HashMap<String, String> _fields) {
+    public Memo(HashMap<String, String> _fields) {
         fields = _fields;
     }
 

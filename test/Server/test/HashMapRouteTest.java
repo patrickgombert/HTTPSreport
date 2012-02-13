@@ -36,17 +36,11 @@ public class HashMapRouteTest extends TestCase {
     }
 
     @Test
-    public void testAddCallBack() {
+    public void testAddAndGetCallBack() {
         hashMapRoute.addVerb("GET");
         hashMapRoute.addRoute("GET", "/test");
-        hashMapRoute.addCallBack("GET", "/test", "ClientMock");
+        hashMapRoute.addCallBack("GET", "/test", ClientMock.class);
         assertEquals(ClientMock.class, hashMapRoute.getCallBack("GET", "/test").getClass());
-    }
-    
-    @Test
-    public void testAddEntry() {
-        hashMapRoute.addEntry("GET", "/test", "testObject");
-        assertEquals(FourOhFourClient.class, hashMapRoute.getCallBack("GET", "/test").getClass());
     }
 
 }

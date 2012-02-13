@@ -8,15 +8,15 @@ public class ClientMarketer implements Marketer {
         executive = _executive;
     }
 
-    public void execute(Packet packet, Route routes, Executive _executive) {
+    public void execute(Memo memo, Route routes, Executive _executive) {
         executive = _executive;
-        String verb = packet.getField("Verb");
-        String path = packet.getField("Path");
+        String verb = memo.getField("Verb");
+        String path = memo.getField("Path");
         Client client = findCallBack(verb, path, routes);
         if (client != null) {
-            invokeCallBack(client, packet);
+            invokeCallBack(client, memo);
         }  else {
-            clientResponse(new Packet(404, "HTML", "<html>Not Found</html>"));
+            clientResponse(new Memo(404, "HTML", "<html>Not Found</html>"));
         }
     }
 
@@ -25,23 +25,23 @@ public class ClientMarketer implements Marketer {
             return route.getCallBack(verb, path);
         } catch(Exception e) {
             System.err.println("Incoming route " + route + " not found");
-            clientResponse(new Packet(404, "HTML"));
+            clientResponse(new Memo(404, "HTML"));
             return null;
         }
     }
 
-    public void invokeCallBack(Client client, Packet packet) {
+    public void invokeCallBack(Client client, Memo memo) {
         try {
-            client.setPacket(packet);
+            client.setMemo(memo);
             client.execute(this);
         } catch(Exception e) {
             System.err.println("Callback of client failed");
-            clientResponse(new Packet(500, "HTML"));
+            clientResponse(new Memo(500, "HTML"));
         }
     }
 
-    public void clientResponse(Packet packet) {
-        executive.sendResponse(packet);
+    public void clientResponse(Memo memo) {
+        executive.sendResponse(memo);
     }
 
 }

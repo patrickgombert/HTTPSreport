@@ -21,36 +21,36 @@ public class Executive extends Thread {
     public void run() {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            Packet inPacket = parsePacket(in);
-            if (inPacket != null) {
-                invokeMarketer(inPacket);
+            Memo inMemo = parseMemo(in);
+            if (inMemo != null) {
+                invokeMarketer(inMemo);
             } else {
                 closeSocket();
             }
         } catch(IOException e) {
-            sendResponse(new Packet(500, "HTML", "<html>Whoops, something went wrong</html>"));
-            System.err.println("Did not properly read packet from: " + clientSocket.getInetAddress().getAddress());
+            sendResponse(new Memo(500, "HTML", "<html>Whoops, something went wrong</html>"));
+            System.err.println("Did not properly read Memo from: " + clientSocket.getInetAddress().getAddress());
         }
     }
 
-    public Packet parsePacket(BufferedReader in) {
+    public Memo parseMemo(BufferedReader in) {
         Analyst parser = new Analyst(in);
         parser.parse();
-        return parser.getPacket();
+        return parser.getMemo();
     }
     
-    public void invokeMarketer(Packet inPacket) {
-        marketer.execute(inPacket, routes, this);
+    public void invokeMarketer(Memo inMemo) {
+        marketer.execute(inMemo, routes, this);
     }
 
-    public void sendResponse(Packet packet) {
+    public void sendResponse(Memo memo) {
         try {
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
-            PacketPresenter presenter = new PacketPresenter(packet);
-            out.write(presenter.getOutPacket().getBytes());
+            MemoPresenter presenter = new MemoPresenter(memo);
+            out.write(presenter.getOutMemo().getBytes());
             closeSocket();
         } catch(IOException e) {
-            System.err.println("Did not properly send packet to: " + clientSocket.getInetAddress().getAddress());
+            System.err.println("Did not properly send Memo to: " + clientSocket.getInetAddress().getAddress());
             closeSocket();
         }
     }

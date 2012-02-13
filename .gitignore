@@ -1,4 +1,5 @@
 .idea
 *.iml
 out/
-./lib/tictactoe.jar
+*tictactoe.jar
+*routes.txt

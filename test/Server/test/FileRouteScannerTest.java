@@ -1,6 +1,8 @@
 package Server.test;
 
+import Server.src.Clients.src.FourOhFourClient;
 import Server.src.FileRouteScanner;
+import Server.src.mocks.src.ClientMock;
 import Server.test.mocks.src.TestingRoute;
 import junit.framework.TestCase;
 import org.junit.After;
@@ -17,7 +19,7 @@ public class FileRouteScannerTest extends TestCase {
     @Before
     public void setUp() {
         route = new TestingRoute("MockClient");
-        scanner = new FileRouteScanner(new Scanner("GET /test ClientMock"), route);
+        scanner = new FileRouteScanner(new Scanner("GET /test"), route, ClientMock.class);
     }
 
     @After
@@ -40,7 +42,7 @@ public class FileRouteScannerTest extends TestCase {
 
     @Test
     public void testInvalidHTTPVerb() {
-        scanner = new FileRouteScanner(new Scanner("DERP /test ClientMock"), route);
+        scanner = new FileRouteScanner(new Scanner("DERP /test"), route, ClientMock.class);
         try {
             scanner.reportByLine();
             fail("Didn't throw IllegalArgumentException");

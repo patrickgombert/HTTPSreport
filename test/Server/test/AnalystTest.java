@@ -1,6 +1,6 @@
 package Server.test;
 
-import Server.src.Packet;
+import Server.src.Memo;
 import Server.src.Analyst;
 import junit.framework.TestCase;
 import org.junit.*;
@@ -32,20 +32,20 @@ public class AnalystTest extends TestCase {
     }
 
     @Test
-    public void testGetPacket() {
-        assertTrue(parser.getPacket().getClass().equals(Packet.class));
+    public void testGetMemo() {
+        assertTrue(parser.getMemo().getClass().equals(Memo.class));
     }
     
     @Test
-    public void testPacketAttributes() {
-        assertEquals("GET", parser.getPacket().getField("Verb"));
-        assertEquals("/test", parser.getPacket().getField("Path"));
-        assertEquals("keep-alive", parser.getPacket().getField("Connection"));
+    public void testMemoAttributes() {
+        assertEquals("GET", parser.getMemo().getField("Verb"));
+        assertEquals("/test", parser.getMemo().getField("Path"));
+        assertEquals("keep-alive", parser.getMemo().getField("Connection"));
     }
 
     @Test
     public void testGetContent() {
-        assertEquals("This is data\r\nThis, too, is data\r\n", parser.getPacket().getField("Content"));
+        assertEquals("This is data\r\nThis, too, is data\r\n", parser.getMemo().getField("Content"));
     }
 
 }

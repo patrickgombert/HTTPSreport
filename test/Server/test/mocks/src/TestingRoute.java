@@ -14,17 +14,13 @@ public class TestingRoute implements Route {
         findMe = _findMe;
     }
     
-    public void addEntry(String verb, String route, String string) {
+    public void addEntry(String verb, String route, Class callBack) {
         call = "addEntry";
-        data = verb + " " + route + " " + string;
+        data = verb + " " + route + " " + callBack.getSimpleName();
     }
     
     public Client getCallBack(String verb, String route) {
         return new ClientMock();
-    }
-    
-    public void parseRoutes(String path) {
-
     }
 
 }

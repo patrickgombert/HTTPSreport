@@ -1,32 +1,32 @@
 package Server.test;
 
-import Server.src.Packet;
-import Server.src.PacketPresenter;
+import Server.src.Memo;
+import Server.src.MemoPresenter;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PacketPresenterTest extends TestCase {
+public class MemoPresenterTest extends TestCase {
     
-    Packet packet;
-    PacketPresenter presenter;
+    Memo memo;
+    MemoPresenter presenter;
     
     @Before
     public void setUp() {
-        packet = new Packet(200, "HTML", "<html>Hello World!</html>");
-        presenter = new PacketPresenter(packet);
+        memo = new Memo(200, "HTML", "<html>Hello World!</html>");
+        presenter = new MemoPresenter(memo);
     }
 
     @After
     public void tearDown() {
-        packet = null;
+        memo = null;
         presenter = null;
     }
     
     @Test 
-    public void testGetOutPacket() {
-        String out = presenter.getOutPacket();
+    public void testGetOutMemo() {
+        String out = presenter.getOutMemo();
         assertEquals("HTTP/1.1 200 OK\r\n" +
                 "Content-Type: text/html\r\n" +
                 "Server: Patrick's Server\r\n" +

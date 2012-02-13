@@ -2,7 +2,7 @@ package Server.test;
 
 import Server.src.Client;
 import Server.src.ClientMarketer;
-import Server.src.Packet;
+import Server.src.Memo;
 import Server.src.Route;
 import Server.src.mocks.src.ClientMock;
 import Server.test.mocks.src.MiddlemanMock;
@@ -30,7 +30,7 @@ public class ClientMarketerTest extends TestCase {
     public void testInvokeCallBack() {
         ClientMock client = new ClientMock();
         clientMarketer.invokeCallBack(client, null);
-        assertTrue(client.setPacket);
+        assertTrue(client.setMemo);
         assertTrue(client.executed);
     }
     
@@ -45,10 +45,10 @@ public class ClientMarketerTest extends TestCase {
     public void testClientResponse() {
         MiddlemanMock middlemanMock = new MiddlemanMock(null, null);
         clientMarketer.setExecutive(middlemanMock);
-        Packet packet = new Packet(200, "HTML");
-        clientMarketer.clientResponse(packet);
+        Memo memo = new Memo(200, "HTML");
+        clientMarketer.clientResponse(memo);
         assertEquals(middlemanMock.getCall(), "sendResponse");
-        assertEquals(middlemanMock.getData(), packet);
+        assertEquals(middlemanMock.getData(), memo);
     }
 
 }

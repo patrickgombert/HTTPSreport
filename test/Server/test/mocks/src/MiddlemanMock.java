@@ -2,7 +2,7 @@ package Server.test.mocks.src;
 
 import Server.src.Executive;
 import Server.src.Marketer;
-import Server.src.Packet;
+import Server.src.Memo;
 
 import java.net.Socket;
 
@@ -23,9 +23,9 @@ public class MiddlemanMock extends Executive {
         return data;
     }
     
-    public void sendResponse(Packet packet) {
+    public void sendResponse(Memo memo) {
         call = "sendResponse";
-        data = packet;
+        data = memo;
     }
 
 }

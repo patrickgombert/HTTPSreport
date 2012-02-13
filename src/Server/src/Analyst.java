@@ -8,8 +8,8 @@ public class Analyst {
     private BufferedReader in;
     private HashMap<String, String> fields;
 
-    public Analyst(String packet) {
-        this(new BufferedReader(new CharArrayReader(packet.toCharArray())));
+    public Analyst(String Memo) {
+        this(new BufferedReader(new CharArrayReader(Memo.toCharArray())));
     }
 
     public Analyst(InputStream _in) {
@@ -21,8 +21,8 @@ public class Analyst {
         fields = new HashMap<String, String>();
     }
 
-    public Packet getPacket() {
-        return new Packet(fields);
+    public Memo getMemo() {
+        return new Memo(fields);
     }
 
     public void parse() {
@@ -32,7 +32,7 @@ public class Analyst {
             parse(in.readLine());
             parseContent();
         } catch(Exception e) {
-            System.err.println("Reading a corrupted packet.");
+            System.err.println("Reading a corrupted Memo.");
         }
     }
     

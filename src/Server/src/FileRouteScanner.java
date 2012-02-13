@@ -9,11 +9,13 @@ public class FileRouteScanner {
 
     private Scanner scanner;
     private Route routes;
+    private Class clientImpl;
     
-    public FileRouteScanner(Scanner _scanner, Route _routes) {
+    public FileRouteScanner(Scanner _scanner, Route _routes, Class _clientImpl) {
         setVerbs();
         scanner = _scanner;
         routes = _routes;
+        clientImpl = _clientImpl;
     }
     
     private void setVerbs() {
@@ -29,11 +31,13 @@ public class FileRouteScanner {
         try {
             while(scanner.hasNextLine()) {
                 String[] line = processLine(scanner.nextLine());
-                if(line.length != 3 || !verbs.contains(line[0])) {
+                if(line.length != 2 || !verbs.contains(line[0])) {
                     throw new IllegalArgumentException();
                 }
-                routes.addEntry(line[0], line[1], line[2]);
+                routes.addEntry(line[0], line[1], clientImpl);
             }
+        } catch(NullPointerException e) {
+            throw new IllegalArgumentException();
         } finally {
             scanner.close();
         }

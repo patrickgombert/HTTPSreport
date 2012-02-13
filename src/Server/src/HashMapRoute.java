@@ -1,23 +1,21 @@
 package Server.src;
 
 import Server.src.Clients.src.FourOhFourClient;
-import Server.src.mocks.src.ClientMock;
-import TTTGame.src.TicTacToeClient;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class HashMapRoute implements Route {
     
-    private ConcurrentHashMap<String, ConcurrentHashMap<String, String>> routeMap;
+    private ConcurrentHashMap<String, ConcurrentHashMap<String, Class>> routeMap;
     
     public HashMapRoute() {
-        routeMap = new ConcurrentHashMap<String, ConcurrentHashMap<String, String>>();
+        routeMap = new ConcurrentHashMap<String, ConcurrentHashMap<String, Class>>();
     }
     
     public void addVerb(String verb) {
         if(!getVerbs().contains(verb)) {
-            ConcurrentHashMap<String, String> innerMap = new ConcurrentHashMap<String, String>();
+            ConcurrentHashMap<String, Class> innerMap = new ConcurrentHashMap<String, Class>();
             routeMap.put(verb, innerMap);
         }
     }
@@ -27,40 +25,39 @@ public class HashMapRoute implements Route {
     }
     
     public void addRoute(String verb, String route) {
-        routeMap.get(verb).put(route, "");
+        routeMap.get(verb).put(route, Object.class);
     }
     
     public Set getRoutes(String verb) {
         return routeMap.get(verb).keySet();
     }
 
-    public void addCallBack(String verb, String route, String callback) {
-        routeMap.get(verb).put(route, callback);
+    public void addCallBack(String verb, String route, Class callBack) {
+        routeMap.get(verb).put(route, callBack);
     }
 
-    public void addEntry(String verb, String route, String callback) {
+    public void addEntry(String verb, String route, Class callBack) {
         addVerb(verb);
         addRoute(verb, route);
-        addCallBack(verb, route, callback);
+        addCallBack(verb, route, callBack);
     }
 
     public synchronized Client getCallBack(String verb, String route) {
         try {
-            String object = routeMap.get(verb).get(route);
-            Client returnClient = findCallBack(object);
+            Class clientImpl = routeMap.get(verb).get(route);
+            Client returnClient = findCallBack(clientImpl);
             return returnClient;
         } catch(NullPointerException e) {
             return null;
         }
     }
 
-    private Client findCallBack(String callBack) {
-        if(callBack.equals("ClientMock")) {
-            return new ClientMock();
-        } else if(callBack.equals("TicTacToeClient")) {
-            return new TicTacToeClient();
+    private Client findCallBack(Class clientImpl) {
+        try{
+            return (Client)clientImpl.newInstance();
+        } catch(Exception e) {
+            return new FourOhFourClient();
         }
-        return new FourOhFourClient();
     }
 
 }
