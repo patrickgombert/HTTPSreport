@@ -42,7 +42,7 @@ public class HashMapRoute implements Route {
         addCallBack(verb, route, callBack);
     }
 
-    public synchronized Client getCallBack(String verb, String route) {
+    public Client getCallBack(String verb, String route) {
         try {
             Class clientImpl = routeMap.get(verb).get(route);
             Client returnClient = findCallBack(clientImpl);

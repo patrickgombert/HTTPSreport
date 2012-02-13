@@ -11,7 +11,7 @@ public class Memo {
         fields.put("Status", generateStatus(status));
         fields.put("Content-Type", generateFormat(format));
         fields.put("Version", "HTTP/1.1");
-        fields.put("Server", "Patrick's Server");
+        fields.put("Server", "HTTPSreport");
     }
 
     public Memo(int status, String format, String content) {

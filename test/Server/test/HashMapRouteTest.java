@@ -21,6 +21,8 @@ public class HashMapRouteTest extends TestCase {
     public void tearDown() {
         hashMapRoute = null;
     }
+
+
     
     @Test
     public void testAddVerb() {
@@ -41,6 +43,16 @@ public class HashMapRouteTest extends TestCase {
         hashMapRoute.addRoute("GET", "/test");
         hashMapRoute.addCallBack("GET", "/test", ClientMock.class);
         assertEquals(ClientMock.class, hashMapRoute.getCallBack("GET", "/test").getClass());
+    }
+
+    @Test
+    public void testGetVerbs() {
+        hashMapRoute.addVerb("GET");
+        hashMapRoute.addVerb("PUT");
+        hashMapRoute.addVerb("POST");
+        assertTrue(hashMapRoute.getVerbs().contains("GET"));
+        assertTrue(hashMapRoute.getVerbs().contains("PUT"));
+        assertTrue(hashMapRoute.getVerbs().contains("POST"));
     }
 
 }

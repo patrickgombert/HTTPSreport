@@ -29,7 +29,7 @@ public class MemoPresenterTest extends TestCase {
         String out = presenter.getOutMemo();
         assertEquals("HTTP/1.1 200 OK\r\n" +
                 "Content-Type: text/html\r\n" +
-                "Server: Patrick's Server\r\n" +
+                "Server: HTTPSreport\r\n" +
                 "\r\n" +
                 "<html>Hello World!</html>", out);
     }
