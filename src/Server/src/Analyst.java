@@ -26,8 +26,10 @@ public class Analyst {
     }
 
     public void parse() {
-        try {
+        try{
             waitForReader();
+            String packet = readPacket();
+            in = new BufferedReader(new CharArrayReader(packet.toCharArray()));
             parseVerbPathVersion();
             parse(in.readLine());
             parseContent();
@@ -35,9 +37,31 @@ public class Analyst {
             System.err.println("Reading a corrupted Memo.");
         }
     }
+
+//    public void parse() {
+//        try {
+//            waitForReader();
+//            parseVerbPathVersion();
+//            parse(in.readLine());
+//            parseContent();
+//        } catch(Exception e) {
+//            System.err.println("Reading a corrupted Memo.");
+//        }
+//    }
     
     private void waitForReader() throws IOException {
         while(!in.ready());
+    }
+    
+    private String readPacket() throws IOException {
+        String packet = "";
+
+        while(in.ready()) {
+            int nextChar = in.read();
+            packet += (char)nextChar;
+        }
+
+        return packet;
     }
 
     private void parse(String line) throws IOException {
@@ -80,7 +104,8 @@ public class Analyst {
     private void parseContent() throws IOException {
         String data = "";
         while(in.ready()) {
-            data += in.readLine() + "\r\n";
+            data += in.readLine();
+            data += "\r\n";
         }
         fields.put("Content", data);
     }
