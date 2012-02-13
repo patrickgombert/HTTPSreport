@@ -32,8 +32,7 @@ public class ClientMarketer implements Marketer {
 
     public void invokeCallBack(Client client, Memo memo) {
         try {
-            client.setMemo(memo);
-            client.execute(this);
+            client.execute(this, memo);
         } catch(Exception e) {
             System.err.println("Callback of client failed");
             clientResponse(new Memo(500, "HTML"));

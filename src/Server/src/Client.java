@@ -1,11 +1,11 @@
 package Server.src;
 
-public interface Client {
+public abstract class Client {
 
-    public void setMemo(Memo memo);
-
-    public void execute(Marketer marketer);
+    public abstract void execute(Marketer marketer, Memo inMemo);
     
-    public void contactMarketer(Marketer marketer, Memo returnMemo);
+    public void contactMarketer(Marketer marketer, Memo returnMemo) {
+        marketer.clientResponse(returnMemo);
+    }
 
 }

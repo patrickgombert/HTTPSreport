@@ -4,7 +4,7 @@ import Server.src.Client;
 import Server.src.Marketer;
 import Server.src.Memo;
 
-public class ClientMock implements Client {
+public class ClientMock extends Client {
 
     public boolean executed;
     public boolean setMemo;
@@ -14,16 +14,9 @@ public class ClientMock implements Client {
         setMemo = false;
     }
 
-    public void setMemo(Memo memo) {
+    public void execute(Marketer marketer, Memo inMemo) {
         setMemo = true;
-    }
-
-    public void execute(Marketer marketer) {
         executed = true;
-    }
-    
-    public void contactMarketer(Marketer marketer, Memo memo) {
-
     }
 
 }

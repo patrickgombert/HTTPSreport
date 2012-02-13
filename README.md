@@ -29,17 +29,15 @@ The Marketer will call the Route to retrieve an instance of Client to invoke. It
 The Route will hold all of the routes specified. When a certain route is invoked it will create an instance of a Client for the Marketer to use.
 
 ###Client
-Client is the interfaced used by applications which wish to use HTTPSreport. A Client will have its Memo set by the Marketer. It will then be told to execute by the Marketer. When the Client has finished it will invoke the Marketer and pass along the return Memo it has generated.
+Client is the abstract interface used by an applications which wishes to use HTTPSreport. A Client will receive its Memo from the Marketer during the execute call. When the Client has finished it will invoke the Marketer and pass along the return Memo it has generated.
 
 # Usage
 ### Creating a Client
-Applications using HTTPSreport must make use of the Client Interface provided. The package location of the Client Interface is Server.src.Client.  Clients are required to expose three public methods: setMemo(), execute(), and contactMarketer().
+Applications using HTTPSreport must make use of the Client Abstract Class provided. The package location of the Client Abstract Class is Server.src.Client.  Clients are required to implement one public method: execute().
 
-setMemo will take a Memo as a parameter. Inside of the memo are the fields from the incoming HTTP request. 
+execute will take a Marketer instance and an inMemo as its paremeters. The Marketer instance is important because this is the instance the Client must contact after it has run to completion.
 
-execute will take a Marketer instance as a paremeter. The Marketer instance is important because this is the instance the Client must contact after it has run to completion.
-
-contactMarketer will take Marketer and Memo as parameters. The Marketer is the instance to be contacted and the Memo is the memo to pass back up. Marketer contains a method named clientResponse() which takes a Memo as a parameter. This is how a client contacts their Marketer.
+contactMarketer is inherited from the Client base class. This will take Marketer and Memo as parameters. The Marketer is the instance to be contacted (given to the Client by the execute method) and the Memo is the memo to pass back up. Marketer contains a method named clientResponse() which takes a Memo as a parameter. This is how a client contacts their Marketer.
 
 ### Example Client
 ``` java
@@ -49,16 +47,13 @@ import Server.src.Client;
 import Server.src.Marketer;
 import Server.src.Memo;
 
-public class AppClient implements Client {
+public class AppClient extends Client {
 
    private Memo inMemo;
    private Memo outMemo;
 
-   public void setMemo(Memo _memo) {
-      inMemo = _memo; // Incoming Memo
-   }
-
-   public void execute(Marketer marketer) {
+   public void execute(Marketer marketer, Memo _inMemo) {
+      inMemo = _inMemo;
       if(inMemo.getField("Verb").equals("GET")) {
          outMemo = new Memo(200, "HTML", "<html>Hello World!</html>"); // Outgoing Memo
       } else {
@@ -67,15 +62,11 @@ public class AppClient implements Client {
       contactMarketer(marketer, outMemo);
    }
 
-   public void contactMarketer(Marketer marketer, Memo _memo) {
-      marketer.clientResponse(_memo);
-   }
-
 }
 ```
 
 ### Creating a Routes File
-The routes file is a plaintext file for defining routes. Any route not found on the list will generate a 404 Not Found response. The syntax is simple one route per line with the verb in all caps first followed by the path. For example:
+The routes file is a plaintext file for defining routes. Any route not found on the list will generate a 404 Not Found response. The syntax is simple one route per line with the verb in all caps first followed by the path. For example: <br>
 GET / <br>
 POST /post/here <br>
 PUT /example <br>
@@ -83,10 +74,10 @@ DELETE /model <br>
 HEAD / <br>
 
 ### Starting the Server
-The httpsreport jar is an executable jar. There are four parameters to pass to the jar upon execution to link up the server correctly
-[-p | --port] specifies the port number for the server to run on
-[-r | --routes] an absolute path to the route text file for defined routes
-[-j | --jar] an absolute path to your project's jar
-[-c | --class] the package and class name of your Client implementation
+The httpsreport jar is an executable jar. There are four parameters to pass to the jar upon execution to link up the server correctly <br>
+[-p | --port] specifies the port number for the server to run on <br>
+[-r | --routes] an absolute path to the route text file for defined routes <br>
+[-j | --jar] an absolute path to your project's jar <br>
+[-c | --class] the package and class name of your Client implementation <br>
 
 example: java -jar httpsreport.jar -p 3000 -r /path/to/routes.txt -j /path/to/myapp.jar -c example.package.Client
