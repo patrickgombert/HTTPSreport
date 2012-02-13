@@ -3,7 +3,7 @@
 
 <img src="http://cf.drafthouse.com/_uploads/galleries/2164/office-space-copier.jpg" />
 
-## Damn It Feels Good To Be A Gangsta
+## "Hi, Peter. What's happening? We need to talk about your TPS reports..."
 </center>
 
 HTTPSreport is an HTTP Server written in Java. It allows applications to plug in through the Client interface and be served HTTP requests.
@@ -55,7 +55,7 @@ public class AppClient extends Client {
    public void execute(Marketer marketer, Memo _inMemo) {
       inMemo = _inMemo;
       if(inMemo.getField("Verb").equals("GET")) {
-         outMemo = new Memo(200, "HTML", "<html>Hello World!</html>"); // Outgoing Memo
+         outMemo = new Memo(200, "HTML", "<html>Hello World!</html>");
       } else {
          outMemo = new Memo(501, "HTML", "<html>I don't know how to do that!</html>");
       }
@@ -80,4 +80,5 @@ The httpsreport jar is an executable jar. There are four parameters to pass to t
 [-j | --jar] an absolute path to your project's jar <br>
 [-c | --class] the package and class name of your Client implementation <br>
 
-example: java -jar httpsreport.jar -p 3000 -r /path/to/routes.txt -j /path/to/myapp.jar -c example.package.Client
+example: 
+$ java -jar httpsreport.jar -p 3000 -r /path/to/routes.txt -j /path/to/myapp.jar -c example.package.Client

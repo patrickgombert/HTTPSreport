@@ -1,0 +1,2 @@
+-Use a threadpool to manage Executives
+-Introduce relative paths for command line execution
