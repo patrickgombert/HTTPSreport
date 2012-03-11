@@ -8,14 +8,10 @@ public class FileRouteScanner {
     private ArrayList<String> verbs;
 
     private Scanner scanner;
-    private Route routes;
-    private Class clientImpl;
     
-    public FileRouteScanner(Scanner _scanner, Route _routes, Class _clientImpl) {
+    public FileRouteScanner(Scanner _scanner) {
         setVerbs();
         scanner = _scanner;
-        routes = _routes;
-        clientImpl = _clientImpl;
     }
     
     private void setVerbs() {
@@ -27,19 +23,20 @@ public class FileRouteScanner {
         verbs.add("HEAD");
     }
 
-    public void reportByLine() throws IllegalArgumentException {
-        try {
-            while(scanner.hasNextLine()) {
-                String[] line = processLine(scanner.nextLine());
-                if(line.length != 2 || !verbs.contains(line[0])) {
-                    throw new IllegalArgumentException();
-                }
-                routes.addEntry(line[0], line[1], clientImpl);
-            }
-        } catch(NullPointerException e) {
+    public String[] report() throws IllegalArgumentException {
+        String[] line = processLine(scanner.nextLine());
+        if(line.length != 3 || !verbs.contains(line[0])) {
             throw new IllegalArgumentException();
-        } finally {
+        }
+        return line;
+    }
+    
+    public boolean ready() {
+        if (scanner.hasNextLine()) {
+            return true;
+        } else {
             scanner.close();
+            return false;
         }
     }
     

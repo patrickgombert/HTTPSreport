@@ -47,18 +47,10 @@ import Server.src.Client;
 import Server.src.Marketer;
 import Server.src.Memo;
 
-public class AppClient extends Client {
-
-   private Memo inMemo;
-   private Memo outMemo;
+public class GetHelloWorldClient extends Client {
 
    public void execute(Marketer marketer, Memo _inMemo) {
-      inMemo = _inMemo;
-      if(inMemo.getField("Verb").equals("GET")) {
-         outMemo = new Memo(200, "HTML", "<html>Hello World!</html>");
-      } else {
-         outMemo = new Memo(501, "HTML", "<html>I don't know how to do that!</html>");
-      }
+      Memo outMemo = new Memo(200, "HTML", "<html>Hello World!</html>");
       contactMarketer(marketer, outMemo);
    }
 
@@ -66,19 +58,20 @@ public class AppClient extends Client {
 ```
 
 ### Creating a Routes File
-The routes file is a plaintext file for defining routes. Any route not found on the list will generate a 404 Not Found response. The syntax is simple one route per line with the verb in all caps first followed by the path. For example: <br>
-GET / <br>
-POST /post/here <br>
-PUT /example <br>
-DELETE /model <br>
-HEAD / <br>
+The routes file is a plaintext file for defining routes. Any route not found on the list will generate a 404 Not Found response. The syntax is simple, it expects one route per line with the verb in all caps first, followed by the path, followed the by package and class of the Client Implementation that will handle the request. For example: <br>
+GET / com.myapp.GetRootClient <br>
+POST /post/here com.yourapp.PostHereClient <br>
+PUT /example other.pacakge.PutExampleClient <br>
+DELETE /model com.myapp.DeleteModelClient <br>
+HEAD / other.package.HeadRootClient <br>
+How you decide to route incoming requests is completely up you. Feel free to be as modular as your like (or just make spaghetti).
 
 ### Starting the Server
 The httpsreport jar is an executable jar. There are four parameters to pass to the jar upon execution to link up the server correctly <br>
 [-p | --port] specifies the port number for the server to run on <br>
 [-r | --routes] an absolute path to the route text file for defined routes <br>
 [-j | --jar] an absolute path to your project's jar <br>
-[-c | --class] the package and class name of your Client implementation <br>
+* HTTPSreport will find all client implementations in your jar file for you.
 
 example: 
-$ java -jar httpsreport.jar -p 3000 -r /path/to/routes.txt -j /path/to/myapp.jar -c example.package.Client
+$ java -jar httpsreport.jar -p 3000 -r /path/to/routes.txt -j /path/to/myapp.jar

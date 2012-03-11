@@ -1,2 +1,3 @@
 -Use a threadpool to manage Executives
 -Add [-h | --help] to receive a usage message
+-Hotswap client jars

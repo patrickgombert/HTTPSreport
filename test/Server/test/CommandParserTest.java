@@ -35,15 +35,5 @@ public class CommandParserTest extends TestCase {
         parser = new CommandParser(cmd);
         assertEquals("/path/to/test", parser.getJarDirectory());
     }
-    
-    @Test
-    public void testGetClassName() {
-        String[] cmd = {"-c", "TestClass"};
-        CommandParser parser = new CommandParser(cmd);
-        assertEquals("TestClass", parser.getClassName());
-        cmd[0] = "--class";
-        parser = new CommandParser(cmd);
-        assertEquals("TestClass", parser.getClassName());
-    }
 
 }
