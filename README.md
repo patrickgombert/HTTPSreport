@@ -64,10 +64,10 @@ POST /post/here com.yourapp.PostHereClient <br>
 PUT /example other.pacakge.PutExampleClient <br>
 DELETE /model com.myapp.DeleteModelClient <br>
 HEAD / other.package.HeadRootClient <br>
-How you decide to route incoming requests is completely up you. Feel free to be as modular as your like (or just make spaghetti).
+How you decide to route incoming requests is completely up you. Feel free to be as modular as you like (or just make spaghetti).
 
 ### Starting the Server
-The httpsreport jar is an executable jar. There are four parameters to pass to the jar upon execution to link up the server correctly <br>
+The httpsreport jar is an executable jar. There are three parameters to pass to the jar upon execution to link up the server correctly <br>
 [-p | --port] specifies the port number for the server to run on <br>
 [-r | --routes] an absolute path to the route text file for defined routes <br>
 [-j | --jar] an absolute path to your project's jar <br>
